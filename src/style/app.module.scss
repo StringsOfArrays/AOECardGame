@@ -1,0 +1,57 @@
+@import './variables.scss';
+
+.heading {
+    height: 10vh;
+    min-height: 80px;
+    background-color: white;
+    display: flex;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(12, [col-start] 1fr);
+    grid-template-rows: repeat(auto, minmax(100px, auto));
+    gap: 10px;
+    min-height: 700x;
+    background-color: $AOE-Blue;
+    padding-bottom: 5vh;
+    padding-top: 5vh;
+
+    .selectedCard {
+        grid-column: 2 / span 10;
+        grid-row: 2 / 10;
+        height: 40vh;
+        display: flex;
+    }
+
+    .cardGrid {
+        grid-column: 2 / span 5;
+        grid-row: 10 / 20;
+    }
+
+    .buttonArea {
+        position: fixed;
+        display: flex;
+        right: calc(100vw / 12);
+        width: 41vw;
+        height: 33vh;
+        top: 57vh;
+    }
+}
+
+.wrapper > * {
+    grid-column: col-start / span 12;
+}
+
+.foot {
+    height: 5vh;
+    background-color: $Custom-Blue;
+    color: white;
+    text-align: center;
+    line-height: 5vh;
+
+    p {
+        margin: 0;
+    }
+}
+

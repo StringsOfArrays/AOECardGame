@@ -1,25 +1,83 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import fakeAxios from "./__mocks__/axios";
+
+// types
+import { CardData } from './types/types';
+
+// components
+import Heading from './components/heading';
+import SelectedCardDisplay from './components/selectedCardDisplay';
+import CardGrid from './components/cardGrid';
+import ControlPanel from './components/controlPanel';
+
+// style
+import appStyle from './style/app.module.scss';
+
 
 function App() {
+
+  //state
+  const [cardData, setCardData] = useState<Array<CardData>>();
+  const [selectedCard, setSelectedCard] = useState<CardData | undefined>(undefined);
+
+
+  // functions
+  function sortCards(ascending:boolean = true) {
+    if(!cardData) return;
+
+    const newCardData = [...cardData];
+    if(ascending){
+      newCardData.sort((a, b) => a.name > b.name ? 1 : -1);
+    }
+    else {
+      newCardData.sort((a, b) => a.name < b.name ? 1 : -1);
+    }
+    setCardData(newCardData);
+  }
+
+  async function submitSelectedCard():Promise<boolean> {
+    let success = false;
+    if(!selectedCard) return success;
+
+    try {
+      await fakeAxios.post('https://thereisnoapi.com/cards', JSON.stringify(selectedCard));
+      success = true;
+      return success;
+    }
+    catch(e) {
+      console.log(e);
+      return success
+    }
+  }
+
+  useEffect( () => {
+    fakeAxios.get('https://thereisnoapi.com/cards')
+          .then( res => setCardData(JSON.parse(res)));
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <>
+      <header className={appStyle.heading}>
+        <Heading/>
       </header>
-    </div>
+      <main className={appStyle.wrapper}>
+          <div className={appStyle.selectedCard}>
+            {selectedCard && <SelectedCardDisplay {...selectedCard}/>}
+          </div>
+          <div className={appStyle.cardGrid}>
+            {cardData ?
+              <CardGrid data={cardData} onElementClicked={setSelectedCard}/>
+              :
+              <p>Loading...</p>}
+          </div>
+          <div className={appStyle.buttonArea}>
+              <ControlPanel sort={sortCards} submit={submitSelectedCard}/>
+          </div>
+      </main>
+      <footer className={appStyle.foot}>
+              <p>Made by Pascal Mehl</p>
+      </footer>
+    </>
   );
 }
 

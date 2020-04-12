@@ -1,0 +1,111 @@
+@import './variables.scss';
+
+.container {
+    opacity: 0;
+    width: auto;
+    height: auto;
+    background: rgb(245, 245, 245);
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+    transition: .3s;
+    position: relative;
+    animation: fade-in-from-top 1.5s ease forwards;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(0.95);
+        box-shadow: 0px 11px 17px -1px rgba(0,0,0,0.75);
+    }
+
+    svg {
+        position: relative;
+        width: 100%;
+        fill: $Custom-Blue;
+        z-index: 0;
+    }
+
+    .imageCropper {
+        width: 100px;
+        height: 100px;
+        overflow: hidden;
+        position: relative;
+        border-radius: 50%;
+        top: -15%;
+        z-index: 2;
+        border: 7px solid rgb(255, 255, 255);
+        margin: auto;
+        background-color: white;
+    }
+
+    img {
+        height: auto;
+        width: 100%;
+    }
+
+    .textwrapper {
+        position: relative;
+        top: -10%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-top: 1rem;
+        text-align: center;
+    }
+
+    h3, p {
+        display: inline;
+    }
+
+    p {
+        font-size: .7rem;
+    }
+
+    h4 {
+        margin-bottom: 0;
+        margin-top: 1rem;
+        font-size: .8rem;
+    }
+}
+
+
+@media (max-width: 1444px){
+    .container {
+        height: 22rem;
+    }
+}
+
+@media (max-width: 1280px){
+    .container {
+        height: 20rem;
+        .imageCropper {
+            height: 80px;
+            width: 80px;
+        }
+
+        .textwrapper {
+            top: -15%;
+        }
+    }
+}
+
+@media (min-width: 2200px) {
+    .container {
+        .imageCropper {
+            height: 150px;
+            width: 150px;
+            border: 10px solid white;
+        }
+
+        p {
+            font-size: 1rem;
+        }
+
+        h4 {
+            font-size: 1.1rem;
+        }
+
+    }
+}

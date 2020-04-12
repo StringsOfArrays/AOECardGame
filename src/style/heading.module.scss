@@ -1,0 +1,18 @@
+@import './variables.scss';
+
+.container  {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: calc(100vw / 12);
+
+    .logo {
+        height: 3rem;
+    }
+
+    .name {
+        display: inline-block;
+        padding-left: 3rem;
+        color: $AOE-Grey;
+    }
+}
